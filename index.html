@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raj Halder | Vlogger & Creator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap');
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Playfair Display', sans-serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+        }
+
+        .section-title {
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #a855f7, #ec4899);
+            bottom: -8px;
+            left: 0;
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #c026d3;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-black text-white overflow-x-hidden">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-xl font-bold">RH</div>
+                <span class="text-2xl font-semibold tracking-tighter heading-font">RAJ HALDER</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm uppercase tracking-widest">
+                <a href="#about" class="nav-link hover:text-purple-400 transition-colors">About</a>
+                <a href="#clicks" class="nav-link hover:text-purple-400 transition-colors">Random Clicks</a>
+                <a href="#vlogs" class="nav-link hover:text-purple-400 transition-colors">Vlogs</a>
+                <a href="#contact" class="nav-link hover:text-purple-400 transition-colors">Contact</a>
+            </div>
+            
+            <button onclick="toggleMobileMenu()" 
+                    class="md:hidden w-10 h-10 flex items-center justify-center text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden fixed inset-0 bg-black/95 z-50 flex flex-col items-center justify-center gap-8 text-2xl">
+        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-4xl">&times;</button>
+        <a href="#about" onclick="toggleMobileMenu()" class="hover:text-purple-400">About Me</a>
+        <a href="#clicks" onclick="toggleMobileMenu()" class="hover:text-purple-400">Random Clicks</a>
+        <a href="#vlogs" onclick="toggleMobileMenu()" class="hover:text-purple-400">Vlogs</a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="hover:text-purple-400">Contact</a>
+    </div>
+
+    <!-- Hero Section with 3D Canvas -->
+    <section class="hero-bg min-h-screen flex items-center relative">
+        <canvas id="heroCanvas" class="absolute inset-0 z-0"></canvas>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10 pt-20">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-2 bg-white/10 text-sm px-4 py-2 rounded-full mb-6 backdrop-blur-md">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    CREATIVE VLOGGER
+                </div>
+                
+                <h1 class="text-7xl md:text-8xl font-bold heading-font leading-none mb-6">
+                    RAJ<br>HALDER
+                </h1>
+                
+                <p class="text-2xl text-purple-300 mb-8">Capturing moments • Telling stories • Living creatively</p>
+                
+                <div class="flex gap-4">
+                    <a href="#about" 
+                       class="px-8 py-4 bg-white text-black font-medium rounded-2xl hover:bg-purple-400 hover:text-white transition-all flex items-center gap-3 group">
+                        Discover My World
+                        <i class="fas fa-arrow-down group-active:rotate-45 transition"></i>
+                    </a>
+                    <a href="#clicks" 
+                       class="px-8 py-4 border border-white/50 hover:border-white font-medium rounded-2xl transition-all">
+                        Explore Clicks
+                    </a>
+                </div>
+                
+                <div class="mt-16 flex gap-8 text-sm">
+                    <div>
+                        <div class="text-purple-400">50+</div>
+                        <div class="text-white/60">Vlogs</div>
+                    </div>
+                    <div>
+                        <div class="text-purple-400">10K+</div>
+                        <div class="text-white/60">Followers</div>
+                    </div>
+                    <div>
+                        <div class="text-purple-400">∞</div>
+                        <div class="text-white/60">Moments Captured</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 flex flex-col items-center gap-2 text-xs tracking-widest">
+            <div class="w-px h-12 bg-gradient-to-b from-transparent via-white/40 to-transparent"></div>
+            SCROLL
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-16 items-start">
+                <!-- Photo -->
+                <div class="md:col-span-5">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-br from-purple-500 via-pink-500 to-violet-500 rounded-3xl opacity-20 blur-2xl"></div>
+                        <img id="profilePhoto" 
+                             src="https://begibharat0-ux.github.io/RAJ.HALDER/photo111.jpg" 
+                             alt="Raj Halder"
+                             class="w-full aspect-[4/5] object-cover rounded-3xl shadow-2xl relative z-10 border border-white/10">
+                        <div class="absolute bottom-6 right-6 bg-black/80 glass px-6 py-3 rounded-2xl flex items-center gap-3 border border-white/10">
+                            <div class="text-3xl">📍</div>
+                            <div>
+                                <div class="font-medium">Kolkata, India</div>
+                                <div class="text-sm text-white/60">Wanderer • Storyteller</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>H
+                
+                <!-- Bio -->
+                <div class="md:col-span-7">
+                    <div class="max-w-lg">
+                        <div class="uppercase tracking-[3px] text-purple-400 text-sm mb-3">CHAPTER 01 • THE CREATOR</div>
+                        <h2 class="section-title text-5xl md:text-6xl heading-font font-bold leading-none mb-8">
+                            Hello, I'm Raj Halder
+                        </h2>
+                        
+                        <div class="prose prose-invert text-lg leading-relaxed text-white/80">
+                            <p class="mb-6">
+                                A simple vlogger and a student capturing random clicks. With a camera in hand and curiosity in heart, 
+                                I document life's beautiful chaos — from bustling city streets to serene mountain escapes.
+                            </p>
+                            <p>
+                                My journey began with a simple desire to freeze fleeting moments. Today, through my lens, I share raw emotions, 
+                                hidden gems of culture, and the joy of spontaneous adventures. When I'm not filming, you'll find me editing late into the night, 
+                                experimenting with new storytelling techniques, or planning my next big trip.
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4 mt-12">
+                            <div class="flex items-center gap-3 bg-white/5 px-5 py-3 rounded-2xl">
+                                <i class="fas fa-video text-2xl text-pink-400"></i>
+                                <div>
+                                    <div class="text-xs text-white/50">CURRENT PROJECT</div>
+                                    <div class="font-medium">India Unfiltered</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 bg-white/5 px-5 py-3 rounded-2xl">
+                                <i class="fas fa-camera text-2xl text-purple-400"></i>
+                                <div>
+                                    <div class="text-xs text-white/50">SPECIALTY</div>
+                                    <div class="font-medium">Cinematic Travel</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" onclick="alert('Connect with Raj on socials! (demo)')"
+                           class="mt-10 inline-flex items-center gap-2 text-purple-400 hover:text-white group">
+                            LET'S CONNECT 
+                            <span class="group-hover:translate-x-1 transition">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Random Clicks Section -->
+    <section id="clicks" class="py-24 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <div class="uppercase tracking-widest text-sm text-pink-400 mb-2">CHAPTER 02 • VISUAL DIARY</div>
+                    <h2 class="section-title text-5xl heading-font font-bold">Random Clicks</h2>
+                    <p class="text-white/60 mt-3 max-w-md">Unfiltered moments from my lens. Life as it happens.</p>
+                </div>
+                <a href="#" class="hidden md:flex items-center gap-2 text-sm group">
+                    VIEW ALL GALLERY 
+                    <span class="block w-8 h-px bg-white group-hover:w-12 transition-all"></span>
+                </a>
+            </div>
+
+            <!-- Photo Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Image 1 -->
+                <div onclick="viewImageDetail(1)" class="group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-3xl aspect-square card-hover">
+                        <img src="https://picsum.photos/id/1015/600/600" 
+                             alt="Random Click 1"
+                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-6">
+                            <div>
+                                <div class="text-sm">Kolkata Streets • 2025</div>
+                                <div class="text-xs text-white/60">Golden hour magic</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image 2 -->
+                <div onclick="viewImageDetail(2)" class="group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-3xl aspect-square card-hover">
+                        <img src="https://picsum.photos/id/133/600/600" 
+                             alt="Random Click 2"
+                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-6">
+                            <div>
+                                <div class="text-sm">Himalayan Trail • 2025</div>
+                                <div class="text-xs text-white/60">First light</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image 3 -->
+                <div onclick="viewImageDetail(3)" class="group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-3xl aspect-square card-hover">
+                        <img src="https://picsum.photos/id/201/600/600" 
+                             alt="Random Click 3"
+                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-6">
+                            <div>
+                                <div class="text-sm">Coastal Vibes • Goa</div>
+                                <div class="text-xs text-white/60">Wave whispers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image 4 -->
+                <div onclick="viewImageDetail(4)" class="group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-3xl aspect-square card-hover">
+                        <img src="https://picsum.photos/id/251/600/600" 
+                             alt="Random Click 4"
+                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-6">
+                            <div>
+                                <div class="text-sm">Neon Nights • Mumbai</div>
+                                <div class="text-xs text-white/60">City pulse</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>H
+    </section>
+
+    <!-- Vlogs Teaser -->
+    <section id="vlogs" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 text-sm bg-white/10 px-5 py-2 rounded-3xl mb-4">
+                    <i class="fas fa-images"></i>
+                    <span>LATEST PICTURES</span>
+                </div>
+                <h2 class="text-5xl heading-font font-bold">Featured IMAGES</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group bg-zinc-900 rounded-3xl overflow-hidden">
+                    <div class="relative">
+                        <img src="https://picsum.photos/id/870/600/400" class="w-full aspect-video object-cover" alt="">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-white/90 rounded-2xl flex items-center justify-center text-black text-3xl group-hover:scale-110 transition">
+                                ▶
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs text-purple-400">12 MIN • 3 DAYS AGO</div>
+                        <div class="font-semibold text-xl mt-2">A Day in the Life of a Kolkata Vlogger</div>
+                    </div>
+                </div>
+                
+                <div class="group bg-zinc-900 rounded-3xl overflow-hidden">
+                    <div class="relative">
+                        <img src="https://picsum.photos/id/1016/600/400" class="w-full aspect-video object-cover" alt="">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-white/90 rounded-2xl flex items-center justify-center text-black text-3xl group-hover:scale-110 transition">
+                                ▶
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs text-purple-400">18 MIN • 2 WEEKS AGO</div>
+                        <div class="font-semibold text-xl mt-2">Solo Trek in the Himalayas</div>
+                    </div>
+                </div>
+                
+                <div class="group bg-zinc-900 rounded-3xl overflow-hidden">
+                    <div class="relative">
+                        <img src="https://picsum.photos/id/133/600/400" class="w-full aspect-video object-cover" alt="">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-white/90 rounded-2xl flex items-center justify-center text-black text-3xl group-hover:scale-110 transition">
+                                ▶
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs text-purple-400">9 MIN • 1 MONTH AGO</div>
+                        <div class="font-semibold text-xl mt-2">Hidden Beaches of India</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer id="contact" class="bg-black border-t border-white/10 py-20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex justify-center mb-8">
+                <div class="flex gap-6 text-3xl">
+                    <a href="#" class="hover:text-purple-400 transition"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/gazzelle_ppl/?next=%2Fdirect%2Finbox%2F" class="hover:text-purple-400 transition" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    
+                </div>
+            </div>
+            
+            <p class="text-white/40 text-sm">© 2026 Raj Halder. All moments preserved.</p>
+            <p class="text-xs text-white/30 mt-8">Made with ❤️ and a lot of coffee • 3D Powered by Three.js</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script already included via CDN
+        
+        // Simple 3D Background using Three.js
+        function initThreeJS() {
+            const canvas = document.getElementById('heroCanvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            
+            const renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                alpha: true,
+                antialias: true
+            });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            
+            // Create floating particles / stars
+            const particlesCount = 800;
+            const posArray = new Float32Array(particlesCount * 3);
+            
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+            }
+            
+            const particlesGeometry = new THREE.BufferGeometry();
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.015,
+                color: 0xa855f7,
+                transparent: true,
+                opacity: 0.6,
+                blending: THREE.AdditiveBlending
+            });
+            
+            const particleMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particleMesh);
+            
+            camera.position.z = 3;
+            
+            // Animation loop
+            let time = 0;
+            function animate() {
+                requestAnimationFrame(animate);
+                time += 0.001;
+                
+                particleMesh.rotation.y = time * 0.1;
+                particleMesh.rotation.x = Math.sin(time) * 0.1;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        
+        // Mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        
+        // Fake image viewer
+        function viewImageDetail(id) {
+            const messages = [
+                "",
+                "Captured during a spontaneous evening walk. The light was perfect.",
+                "One of the most peaceful mornings I've had in the mountains.",
+                "Goa never disappoints. The ocean was calling.",
+                "The energy of Mumbai at night is unmatched."
+            ];
+            
+            alert(`Random Click #${id}\n\n${messages[id]}\n\n(Full gallery would open here in a real site)`);
+        }
+        
+        // Initialize everything
+        window.onload = function() {
+            initThreeJS();
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') !== '#') {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            console.log('%cRaj Halder Vlog Site ready ✨', 'color:#c026d3; font-family:monospace');
+        };
+    </script>
+</body>
+</html>
